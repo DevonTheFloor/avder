@@ -11,11 +11,10 @@ exports.signup = (req,res,next)=>{
         email: req.body.email,
         password: hash
       });
+   });
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => res.status(400).json({ error }));
-    })
-  
+        .catch(error => res.status(400).json({ message:"erreur typt 400" })); 
 };
 
 exports.login = (req, res, next) => {
