@@ -20,9 +20,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/api/auth/signup', usersRoutes);
-app.use('/api/auth/login', usersRoutes);
-app.post('api/sauces/', saucesRoutes);
-app.get('/api/sauces/', saucesRoutes);
+app.use();
 
 module.exports = app;
