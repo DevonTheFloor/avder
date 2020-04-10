@@ -5,17 +5,10 @@ const multer = require('multer');
 const path = require('path');
 const saucesCtrl = require('../controllers/sauces');
 
-let storage = multer.diskStorage({
-  destination: 'store/',
-  filename: function (req, file, reName) {
-    reName(null, file.originalname)
-  }
-});
-var upload = multer({
-  storage: storage
-});
 
-router.post('/sauces/',auth, upload.single('filer'),saucesCtrl.createSauce);
-router.get('/sauces/', saucesCtrl.findAllSauces);
+router.post('/sauces',saucesCtrl.createOne);
+//router.post('/sauces', saucesCtrl.modifyOne);
+router.get('/sauces', saucesCtrl.getAll);
+router.get('/sauces/:id',saucesCtrl.getOne);
 
 module.exports = router;

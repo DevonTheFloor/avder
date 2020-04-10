@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const usersRoutes = require('./routes/users');
+const usersRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauces');
 const mongoose =require('mongoose');
 
@@ -20,9 +20,12 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/api/auth/signup', usersRoutes);
-app.use('/api/auth/login', usersRoutes);
-app.post('api/sauces/', saucesRoutes);
-app.get('/api/sauces/', saucesRoutes);
+app.use("/api/coucou",(req,res,next)=>{
+  res.status(200).json({message:"A que COUCOU !!"});
+});
+
+app.use('/api/auth', usersRoutes);
+app.use('/api', saucesRoutes);
+
 
 module.exports = app;

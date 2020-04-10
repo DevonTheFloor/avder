@@ -2,26 +2,27 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const Users = require('../models/User');
+const User = require('../models/user');
 
-exports.signup = (req,res,next)=>{
-   bcrypt.hash(req.body.password, 10)
+exports.signup = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10)
     .then(hash => {
-      const user = new Users({
+      const user = new User({
         email: req.body.email,
         password: hash
       });
-   });
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => res.status(400).json({ message:"erreur typt 400" })); 
+        .catch(error => res.status(400).json({message: "ecriture dans base impossible"}));
+    })
+    .catch(error => res.status(500).json({message:"probleme de cryptage"}));
 };
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+        return res.status(401).json({ error:'pas d\'utilisateur dans la requete'});
       }
       bcrypt.compare(req.body.password, user.password)
         .then(valid => {
@@ -31,12 +32,13 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             userId: user._id,
             token: jwt.sign(
-            {user: user._id},
-            'RANDOM_TOKEN_SECRET',
-            {expiresIn: '24'})
+              { userId: user._id },
+              'RANDOM_TOKEN_SECRET',
+              { expiresIn: '24h' }
+            )
           });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({message:"probleme de cryptage du token"}));
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({message:"utilisateur non trouvé"}));
 };
