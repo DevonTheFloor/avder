@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const usersRoutes = require('./routes/user');
-const saucesRoutes = require('./routes/sauces');
+const saucesRoutes = require('./routes/sauces.js');
+const path = require('path');
+const fs = require('fs');
 const mongoose =require('mongoose');
 
 mongoose.connect('mongodb+srv://alluser:projet6ocdw2020@clusteroc-t8ue9.mongodb.net/test?retryWrites=true&w=majority',
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use("/api/coucou",(req,res,next)=>{
   res.status(200).json({message:"A que COUCOU !!"});
