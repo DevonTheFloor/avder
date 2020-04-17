@@ -43,10 +43,9 @@ exports.modifySauce = (req, res, next) => {
 };
 
 exports.action = (req,res,next)=>{
-
+ res.status(200).json({message:"route like ok"});
   console.log("LIKE");
     /*const sauceObject = JSON.parse(req.body.sauce);
-  //delete saucesObject._id;
   const sauce = new Sauce({
     userID: req.body.userID,
     likes: req.body.likes,

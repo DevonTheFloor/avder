@@ -30,18 +30,21 @@
     var userDisLiked= [" jean "," paul "];
     //tableau fixe des likes
     var userLiked=["nathalie ","henri "];
-    //avis à push
-    let avis = [["sylviane ",1],[" paul ",1],[" severine ",-1],[" paul ",-1]];
+    
     
     dislike.innerHTML = userDisLiked;
     like.innerHTML = userLiked;
 //remplace la partie middleware:
-    function recenser(){
+    function recenser(lis){
+      
+      //avis à push
+
       avis.forEach(user =>{
         for (let i =0;i<user.length;i++){
         console.log("note de "+user[0]+" : "+user[1]);
         }
 //partie à mettre dans le controleur
+        switch(user)
         if (user[1] === 1){
           let searchUL = userLiked.indexOf(user[1],0);
           console.log("index of user : "+searchUL);
@@ -52,8 +55,9 @@
           console.log("compteur : "+total);
           total += user[1];
           compteur.innerHTML= total;
-          console.log("compteur+ :addLike "+total);
-          }else{
+          console.log("compteur+ : "+total);
+          }else if(searchUL >-1){
+            
             console.log(user[0]+" a déjà liked");
             }
           }else{
@@ -63,7 +67,8 @@
          }
         })
       };
-    
+        let avis = [["sylviane ",1],[" paul ",1],[" severine ",-1],[" paul ",-1]];
+      
     recenser();
     
   </script>
