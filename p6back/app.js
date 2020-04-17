@@ -10,8 +10,12 @@ const mongoose =require('mongoose');
 mongoose.connect('mongodb+srv://alluser:projet6ocdw2020@clusteroc-t8ue9.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .then(() => console.log('Connexion à MongoDB P6 DW Okkaaay!'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+//mongodb+srv://Athoms:3kFrJXh8Uzak9v6l@sopecockobackend-hmk61.mongodb.net/test?retryWrites=true&w=majority
+
+//
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

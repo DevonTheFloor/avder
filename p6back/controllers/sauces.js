@@ -5,7 +5,7 @@ const fs = require('fs');
 
 
  exports.createSauce = (req, res, next) => {
-   console.log("COUCOU !!");
+   console.log("CREATE !!");
   const sauceObject = JSON.parse(req.body.sauce);
   const sauce = new Sauce({
     ...sauceObject,
@@ -17,6 +17,7 @@ const fs = require('fs');
 };
 
 exports.getAll = (req,res,next)=>{
+  console.log("GET ALL");
   Sauce.find()
   .then(sauces => res.status(200).json(sauces))
   .catch(error =>res.status(400).json({message:"il n'y a aps de sauces dans base"}));
@@ -30,6 +31,7 @@ exports.getOne = (req,res,next)=>{
 };
 
 exports.modifySauce = (req, res, next) => {
+  console.log("MODIFYING");
   const sauceObject = req.file ?
     {
       ...JSON.parse(req.body.sauce),
@@ -40,35 +42,54 @@ exports.modifySauce = (req, res, next) => {
     .catch(error => res.status(400).json({message:"sauce non trouvée"}));
 };
 
-exports.like = (req,res,next)=>{
-    const sauceObject = JSON.parse(req.body.sauce);
+exports.action = (req,res,next)=>{
+
+  console.log("LIKE");
+    /*const sauceObject = JSON.parse(req.body.sauce);
   //delete saucesObject._id;
   const sauce = new Sauce({
     userID: req.body.userID,
-    likes: req.body.likes
-  });
-  sauce.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-    .catch(error => res.status(400).json({message:"probleme de connexion avec la base"}));
+    likes: req.body.likes,
+    userLiked: req.body.userLiked,
+    userDisLiked : req.body.userDisliked
+  })
+  .then( ()=>{
+  console.log("liké!") ;
+  })
+  .catch(res.status(404).json({message:"sauce introuvable"}));
+  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+    .catch(error => res.status(400).json({message:"sauce non trouvée"}));
+  */
 };
 
-exports.deleteSauce = (req,res,next)=>{
-  console.log("chemin delete");
-  /*Sauce.deleteOne({ _id: "5e90baf7df38fb1066d1393c"})
-    .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-    .catch(error => res.status(400).json({message:"pas de sauce!"}));*/
-};
 
-/*exports.deleteSauce = (req, res, next) => {
-  Sauce.findOne({ _id: "5e90baf7df38fb1066d1393c" })
+
+exports.deleteSauce = (req, res, next) => {
+  console.log("DELETE");
+  Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
       console.log("j'ai find le One!");
       const filename = sauce.imageUrl.split('/images/')[1];
+    
       fs.unlink(`images/${filename}`, () => {
-        sauce.deleteOne({ _id: "5e90baf7df38fb1066d1393c" })
+        sauce.deleteOne({ _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-          .catch(error => res.status(400).json({error}));
+          .catch(error => res.status(400).json({message:"image non effacée"}));
       });
     })
-    .catch(error => res.status(500).json({error}));
-};*/
+    .catch(error => res.status(500).json({message:"probleme de sauce"}));
+};
+
+
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-describre('teston les operations', function(){
+describe('testons les operations', function(){
   it('devra retourner 4', function(){
     assert.equal(4,2+2);
   });

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<meta charset="utf-8">
+	<title>Comme J'aime</title>
+	<meta name="author" content="Your Name">
+	<meta name="description" content="Example description">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="">
+</head>
+
+<body>
+	<header></header>
+	<main>
+   <div id="compteur">0</div>
+  	  <h3>LIKER:</h3>
+	  <div id="like"></div>
+	  <h3>DISLIKER:</h3>
+	  <div id="dislike"></div>
+	</main>
+	<footer></footer>
+	<script type="text/javascript">
+
+    let noter = document.getElementById('noter')
+    let compteur = document.getElementById('compteur');
+    let like = document.getElementById('like');
+    let disLike = document.getElementById('dislike');
+    //tablea fixe des Dislike
+    var userDisLiked= [" jean "," paul "];
+    //tableau fixe des likes
+    var userLiked=["nathalie ","henri "];
+    //avis à push
+    let avis = [["sylviane ",1],[" paul ",1],[" severine ",-1],[" paul ",-1]];
+    
+    dislike.innerHTML = userDisLiked;
+    like.innerHTML = userLiked;
+//remplace la partie middleware:
+    function recenser(){
+      avis.forEach(user =>{
+        for (let i =0;i<user.length;i++){
+        console.log("note de "+user[0]+" : "+user[1]);
+        }
+//partie à mettre dans le controleur
+        if (user[1] === 1){
+          let searchUL = userLiked.indexOf(user[1],0);
+          console.log("index of user : "+searchUL);
+          if (searchUL === -1){
+            userLiked.push(user[0]);
+          like.innerHTML = userLiked;
+          let total = Number(compteur.textContent); 
+          console.log("compteur : "+total);
+          total += user[1];
+          compteur.innerHTML= total;
+          console.log("compteur+ :addLike "+total);
+          }else{
+            console.log(user[0]+" a déjà liked");
+            }
+          }else{
+            console.log("dans else COUCOU");
+            userDisLiked.push(user[0]);
+            disLike.innerHTML = userDisLiked;
+         }
+        })
+      };
+    
+    recenser();
+    
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<meta charset="utf-8">
+	<title>Comme J'aime</title>
+	<meta name="author" content="Your Name">
+	<meta name="description" content="Example description">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="">
+</head>
+
+<body>
+	<header></header>
+	<main>
+	<form>
+	  <input type="text" id="nom"><br>
+	  <label>JAIME <input type="radio" id="jaime" value="1" name="avis"></label>
+	  <label>PAS <input type="radio" id="pas" value="1" name="avis"></label>
+	  <br>
+	 
+	  <button type="submit" id="noter" >noter</button>
+	</form><br><br>
+   <div id="compteur">0</div>
+  	  <h3>LIKER:</h3>
+	  <div id="like"></div>
+	  <h3>DISLIKER:</h3>
+	  <div id="dislike"></div>
+	</main>
+	<footer></footer>
+	<script type="text/javascript">
+    let noter = document.getElementById('noter')
+    let compteur = document.getElementById('compteur');
+    let like = document.getElementById('like');
+    let dislike = document.getElementById('dislike');
+    var disliker= ["personne"];
+    var liker=["biensûr "];
+    let avis2 =[["jean ",1],["paul ",1],["nathalie ",-1],["henri ",-1],["sylviane ",1]];
+    
+    function recenser(){
+      avis2.forEach(avis1 =>{
+          console.log(avis1[0]+" a noté : "+avis1[1]);
+        if(avis1[1]=1){
+            let search = liker.indexOf(avis1[0]);
+          console.log("indexOf : "+search);
+            if (search =-1){
+              liker.push(avis1[0]);
+              console.log("liker : "+liker)
+              like.innerHTML=liker;
+            }
+        }else{
+          let search2 = disliker.indexOf(avis1[1]);
+          if(search2 = -1)
+          {disliker.push(avis1[0]);
+          dislike.innerHTML+=avis1[0];}
+        }
+      })
+    };
+    recenser();
+    
+    jaime.addEventListener('click', function like(){
+      let total = Number(compteur.textContent); 
+      console.log("compteur : "+total);
+      total += 1;
+      compteur.innerHTML= total;
+      console.log("compteur+ : "+total);
+    });
+    
+    pas.addEventListener('click', function dislike(){
+      let total = Number(compteur.textContent); 
+      console.log("compteur : "+total);
+      total -= 1;
+      compteur.innerHTML= total;
+      console.log("compteur+ : "+total);
+    } );
+
+  </script>
+</body>
+
+</html>
