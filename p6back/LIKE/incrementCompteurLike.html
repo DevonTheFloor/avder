@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Comme J'aime</title>
+	<title>Incrément compteur like</title>
 	<meta name="author" content="Your Name">
 	<meta name="description" content="Example description">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,52 +24,50 @@
 
     let noter = document.getElementById('noter')
     let compteur = document.getElementById('compteur');
-    let like = document.getElementById('like');
-    let disLike = document.getElementById('dislike');
+    let likeTab = document.getElementById('like');
+    let disLikeTab = document.getElementById('dislike');
     //tablea fixe des Dislike
     var userDisLiked= [" jean "," paul "];
     //tableau fixe des likes
     var userLiked=["nathalie ","henri "];
     
     
-    dislike.innerHTML = userDisLiked;
-    like.innerHTML = userLiked;
+    disLikeTab.innerHTML = userDisLiked;
+    likeTab.innerHTML = userLiked;
 //remplace la partie middleware:
-    function recenser(lis){
+    function ajoutUserIncrementLike(likes){
       
       //avis à push
-
-      avis.forEach(user =>{
-        for (let i =0;i<user.length;i++){
-        console.log("note de "+user[0]+" : "+user[1]);
+      avisUserLikes.forEach(likes =>{
+        for (let i =0;i<likes.length;i++){
+        console.log("note de "+likes[0]+" : "+likes[1]);
         }
-//partie à mettre dans le controleur
-        switch(user)
-        if (user[1] === 1){
-          let searchUL = userLiked.indexOf(user[1],0);
-          console.log("index of user : "+searchUL);
-          if (searchUL === -1){
-            userLiked.push(user[0]);
-          like.innerHTML = userLiked;
+//partie à mettre dans le controleur pour 
+        if (likes[1] === 1){
+          let searchUserLiked = userLiked.indexOf(likes[1],0);
+          console.log("index of user : "+searchUserLiked);
+          if (searchUserLiked === -1){
+            userLiked.push(likes[0]);
+          likeTab.innerHTML = userLiked;
           let total = Number(compteur.textContent); 
           console.log("compteur : "+total);
-          total += user[1];
+          total += likes[1];
           compteur.innerHTML= total;
           console.log("compteur+ : "+total);
-          }else if(searchUL >-1){
+          }else if(searchUserLiked >-1){
             
-            console.log(user[0]+" a déjà liked");
+            console.log(likes[0]+" a déjà liked");
             }
           }else{
             console.log("dans else COUCOU");
-            userDisLiked.push(user[0]);
-            disLike.innerHTML = userDisLiked;
+            userDisLiked.push(likes[0]);
+            disLikeTab.innerHTML = userDisLiked;
          }
         })
       };
-        let avis = [["sylviane ",1],[" paul ",1],[" severine ",-1],[" paul ",-1]];
-      
-    recenser();
+        let avisUserLikes = [["sylviane ",1],[" paul ",1],[" severine ",-1],[" paul ",-1]];
+      //probleme paul apparait dans les deux tableaux
+    ajoutUserIncrementLike();
     
   </script>
 </body>

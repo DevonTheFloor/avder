@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>fonction liked</title>
+  <meta name="author" content="Your Name">
+  <meta name="description" content="Example description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="">
+</head>
+
+<body>
+  <header></header>
+  <main>
+    <h3>User</h3>
+  </main>
+  <footer></footer>
+  <script type="text/javascript">
+    
+    //case like= +1 ou -1 adapter le tabUser;
+    function liked(tabUser, userID) {
+      if (tabUser.indexOf(userID) === -1) {
+        tabUser.push(userID);
+        console.log('Apres ajout du nouveau user : ' + tabUser);
+      } else if (tabUser.indexOf(userID) > -1) {
+        console.log(userID + ' Déjà liké cette sauce.');
+      }
+    };
+    //case like =0
+    function zero(userId) {
+      if (userLiked.indexOf(userId) > -1) {
+        userLiked.slid();
+      } else if (userDisLiked.indexOf(userID) > -1) {
+        userDisLiked
+      }
+    };
+
+    //spread requete sur sauceObject pou trouver userId, likes et sauceID.
+
+    switch (likes) {
+      case 1:
+      //case 1:
+      liked(userLiked,: id);
+      break;
+      case -1;
+      //case -1:
+      liked(userDisLiked,: id);
+      break;
+      case 0:
+        zero(userID);
+      break;
+      default:
+        res.status(400).json({message:"la requête ne possède pas de valeur like"});
+    }
+
+   //Go To Modify avec sauce id
+    
+    let userLiked = ['jean', 'thomas', 'paul', 'erwann'];
+    console.log("tab de base : " + userLiked);
+  </script>
+</body>
+
+</html>
