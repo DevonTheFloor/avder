@@ -9,6 +9,8 @@ const fs = require('fs');
   const sauceObject = JSON.parse(req.body.sauce);
   const sauce = new Sauce({
     ...sauceObject,
+    likes: 0,
+    dislikes: 0,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
   sauce.save()
@@ -42,26 +44,22 @@ exports.modifySauce = (req, res, next) => {
     .catch(error => res.status(400).json({message:"sauce non trouvée"}));
 };
 
-exports.action = (req,res,next)=>{
+exports.like = (req,res,next)=>{
    console.log("LIKE in route");
- res.status(200).json({message:"route like ok"});
- 
-    /*const sauceObject = JSON.parse(req.body.sauce);
-  const sauce = new Sauce({
-    userID: req.body.userID,
-    likes: req.body.likes,
-    userLiked: req.body.userLiked,
-    userDisLiked : req.body.userDisliked
-  })
-  .then( ()=>{
-  console.log("liké!") ;
-  })
-  .catch(res.status(404).json({message:"sauce introuvable"}));
-  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-    .catch(error => res.status(400).json({message:"sauce non trouvée"}));
-  */
-};
+  Sauce.find({_id: req.params.id})
+    .then((response)=> {console.log(response);
+         console.log(req.body);}
+  )
+    .catch(error=> res.status(400).json({message:"sauce non trouvée"}));
+
+  };
+  
+//  let params = new URLSearchParams(document.location.search);
+//console.log(params);
+//let id = params.get("like");
+//console.log('like= ' + like);
+  
+//{ usersLiked: [], usersDisliked: [], _id: 5e9cc3352366aa1fb4beb287 }
 
 
 

@@ -32,21 +32,5 @@ app.use("/api/coucou",(req,res,next)=>{
 app.use('/api/auth', usersRoutes);
 app.use('/api', saucesRoutes);
 
-app.use('/api/sauces/:id/like',(req,res,next)=>{
-  console.log('LIKED en USE!');
-  const sauce = new Sauce({
-    ...req.body
 
-  });
-   console.log(sauce);
-  
-//  let params = new URLSearchParams(document.location.search);
-//console.log(params);
-//let id = params.get("like");
-//console.log('like= ' + like);
-  
-//{ usersLiked: [], usersDisliked: [], _id: 5e9cc3352366aa1fb4beb287 }
-
-});
-  
 module.exports = app;
