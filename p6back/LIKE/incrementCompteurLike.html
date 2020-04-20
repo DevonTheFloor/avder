@@ -13,6 +13,7 @@
 <body>
 	<header></header>
 	<main>
+  <p> Fonction qui incrémente le compteur de like et ajoute le user dans le tableau dans la mesure ou le front envoir juste une valeur like entre -1 et 1 </p>
    <div id="compteur">0</div>
   	  <h3>LIKER:</h3>
 	  <div id="like"></div>
@@ -21,7 +22,7 @@
 	</main>
 	<footer></footer>
 	<script type="text/javascript">
-
+//Fonction qui increment le compteur de like et ajoute le user dans le tableau correspondant
     let noter = document.getElementById('noter')
     let compteur = document.getElementById('compteur');
     let likeTab = document.getElementById('like');
@@ -37,12 +38,14 @@
 //remplace la partie middleware:
     function ajoutUserIncrementLike(likes){
       
-      //avis à push
+      //avis à push dans l'app correspond au req.body
       avisUserLikes.forEach(likes =>{
         for (let i =0;i<likes.length;i++){
         console.log("note de "+likes[0]+" : "+likes[1]);
         }
-//partie à mettre dans le controleur pour 
+//partie à mettre dans le controleur
+//Fonction qui incrémente le compteur de like et ajoute le user dans le tableau dans la mesure ou le front envoir juste une valeur like entre -1 et 1.
+        //likes[1] étant la valeur de likes., likes[0] le userId
         if (likes[1] === 1){
           let searchUserLiked = userLiked.indexOf(likes[1],0);
           console.log("index of user : "+searchUserLiked);

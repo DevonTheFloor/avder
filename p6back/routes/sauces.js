@@ -7,7 +7,7 @@ const saucesCtrl = require('../controllers/sauces');
 
 
 router.post('/sauces',multer,saucesCtrl.createSauce);
-router.post('/sauces/:id/like'),multer, saucesCtrl.action;
+//router.post('/sauces/:id/like'),multer, saucesCtrl.like;
 router.put('/sauces/:id',multer,saucesCtrl.modifySauce);
 router.get('/sauces', saucesCtrl.getAll);
 router.get('/sauces/:id',saucesCtrl.getOne);

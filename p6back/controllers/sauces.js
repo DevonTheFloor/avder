@@ -27,7 +27,7 @@ exports.getOne = (req,res,next)=>{
   console.log("GET ONE");
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(404).json({message:"cette sauve n'existe pas"}));
+    .catch(error => res.status(404).json({message:"cette sauce n'existe pas"}));
 };
 
 exports.modifySauce = (req, res, next) => {
@@ -43,8 +43,9 @@ exports.modifySauce = (req, res, next) => {
 };
 
 exports.action = (req,res,next)=>{
+   console.log("LIKE in route");
  res.status(200).json({message:"route like ok"});
-  console.log("LIKE");
+ 
     /*const sauceObject = JSON.parse(req.body.sauce);
   const sauce = new Sauce({
     userID: req.body.userID,

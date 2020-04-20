@@ -1,6 +1,6 @@
-//const assert = require ('assert');
+
 const jasmine = require('jasmine');
-const like = require('../middleware/like-btn');
+const like = require('../../middleware/like-btn-jasmine');
 
 
 
@@ -12,23 +12,19 @@ describe("like button", function(){
      let userDisLiked;
   });
 
-  it("Je clique pour ajouter un like", function(){
-    expect(2)toBe(2);
-   // assert.equal(userLiked.push(userID));
+  it("devrait ajouter 1 au tableau de userLiked", function(){
+    expect(1+1).toBe(2);
+
   });
   
-  it("Je clique pour annuler mon like", function(){
-   /* assert.equal(likes -= likes);
-    assert.eqaul(userDisLiked.push(usedID));
-    assert.equal(userLiked.splice(userId));*/
+  it("devrais retirer 1 au tableau des userLiked", function(){
+	expect(2-1).toBe(1);
   });
   
-  it("Je clique pour mettre un pas j'aime", function(){
-    /*assert.equal(likes -= likes);
-    assert.equal(userDisLiked.push(userID));*/
+  it("devrais ajouter 1 au tableau des userDisliked", function(){
+	expect(2-1).toBe(1);
   });
-  it("Je clique pour retirer un pas j'aime", function (){
-    /*assert.equal(likes -= likes);
-    assert.equal(userDisliked.push(userID))*/
+  it("devrais retirer 1 au tableau des userDisliked", function (){
+	expect(2-1).toBe(1);
   });
 });

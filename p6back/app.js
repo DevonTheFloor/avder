@@ -5,6 +5,7 @@ const usersRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauces.js');
 const path = require('path');
 const fs = require('fs');
+const Sauce = require('./models/Sauce');
 const mongoose =require('mongoose');
 
 mongoose.connect('mongodb+srv://alluser:projet6ocdw2020@clusteroc-t8ue9.mongodb.net/test?retryWrites=true&w=majority',
@@ -12,10 +13,6 @@ mongoose.connect('mongodb+srv://alluser:projet6ocdw2020@clusteroc-t8ue9.mongodb.
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB P6 DW Okkaaay!'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
-
-//mongodb+srv://Athoms:3kFrJXh8Uzak9v6l@sopecockobackend-hmk61.mongodb.net/test?retryWrites=true&w=majority
-
-//
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -35,5 +32,21 @@ app.use("/api/coucou",(req,res,next)=>{
 app.use('/api/auth', usersRoutes);
 app.use('/api', saucesRoutes);
 
+app.use('/api/sauces/:id/like',(req,res,next)=>{
+  console.log('LIKED en USE!');
+  const sauce = new Sauce({
+    ...req.body
 
+  });
+   console.log(sauce);
+  
+//  let params = new URLSearchParams(document.location.search);
+//console.log(params);
+//let id = params.get("like");
+//console.log('like= ' + like);
+  
+//{ usersLiked: [], usersDisliked: [], _id: 5e9cc3352366aa1fb4beb287 }
+
+});
+  
 module.exports = app;
