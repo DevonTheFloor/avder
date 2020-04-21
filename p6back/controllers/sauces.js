@@ -47,16 +47,25 @@ exports.modifySauce = (req, res, next) => {
 exports.like = (req,res,next)=>{
    console.log("LIKE in route");
   Sauce.find({ _id: req.params.id})
-    .then((promise)=> {console.log("promise :"+promise);
-//      var usersLikedLd = promise.usersLiked;
-//      console.log("aprams userL :"+usersLiked);
+    .then((response)=>{console.log(response);
+        let sauce = JSON.stringify(response);
+         console.log("type sauce :"+typeof(sauce));
+        let sauceTab= JSON.parse(sauce);
+        console.log("type sauceTab :"+typeof(sauceTab));
+        console.log(sauceTab);
+        for(let i=0;i<sauceTab.length;i++){
+          console.log(sauceTab[3]);
+        }
+//      var sauce = JSON.parse(promise);
+//      console.log("parse sauce :"+sauce);
 //      var userLiked= params.userLiked;
 //      console.log("param ul :"+userLiked);
 
 //mise en variable de req.body
-      console.log("req.body: "+req.body);
+      console.log(req.body);
+      console.log("type body :"+typeof(req.body));
       var userId = req.body.userId;
-        console.log("uId body : "+userId);
+        console.log("userId body = "+userId);
       var like = req.body.like;
       console.log("like = "+like);
                        
