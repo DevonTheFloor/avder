@@ -22,7 +22,7 @@ exports.getAll = (req,res,next)=>{
   console.log("GET ALL");
   Sauce.find()
   .then(sauces => res.status(200).json(sauces))
-  .catch(error =>res.status(400).json({message:"il n'y a aps de sauces dans base"}));
+  .catch(error =>res.status(400).json({message:"il n'y a pas de sauces dans base"}));
 };
 
 exports.getOne = (req,res,next)=>{
@@ -46,62 +46,48 @@ exports.modifySauce = (req, res, next) => {
 
 exports.like = (req,res,next)=>{
    console.log("LIKE in route");
-  Sauce.find({ _id: req.params.id})
-    .then((response)=>{console.log(response);
-        let sauce = JSON.stringify(response);
-         console.log("type sauce :"+typeof(sauce));
-        let sauceTab= JSON.parse(sauce);
-        console.log("type sauceTab :"+typeof(sauceTab));
-        console.log(sauceTab);
-        for(let i=0;i<sauceTab.length;i++){
-          console.log(sauceTab[3]);
-        }
-//      var sauce = JSON.parse(promise);
-//      console.log("parse sauce :"+sauce);
-//      var userLiked= params.userLiked;
-//      console.log("param ul :"+userLiked);
-
-//mise en variable de req.body
-      console.log(req.body);
-      console.log("type body :"+typeof(req.body));
+  console.log(req.body);
       var userId = req.body.userId;
-        console.log("userId body = "+userId);
+        console.log("userId body : "+userId);
       var like = req.body.like;
-      console.log("like = "+like);
-                       
+      console.log("like = "+like);   
+  
       switch (like) {
       case 1:
+  
+  Sauce.find({ _id: req.params.id},{usersDisiked:1,likes:1},
+             likes = req.params.likes,
+          console.log("likes param = "+likes)
+  )
+    .then((response)=> {console.log("response = "+response),
+                        console.log(response.likes)
+})
+  .catch(error => res.status(400).json({message:"avis non pris en compte"}));
 
-          console.log("Case 1");
-       if (userLiked.indexOf(userId) === -1) {
+          break;
 
-        console.log("ul : "+userLiked);
-        userLiked.push(userId);
-        console.log('Apres ajout du nouveau user : ' + userLiked);
-        } else if (userLiked.indexOf(userId) > -1) {
-        console.log(userId + 'A Déjà liké cette sauce.');
-          }
-       Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-    .catch(error => res.status(400).json({message:"sauce non trouvée"}));
-          console.log("fin liked");
+        case -1:
+         Sauce.find({ _id: req.params.id},)
+    .then((promise)=> {console.log(promise);
+})
+  .catch(error => res.status(400).json({message:"mauvaise requête"}));
+          break;
+          
+        case 0:
+          Sauce.find({ _id: req.params.id},{usersLiked:1,usersDisiked:1,likes:1,dislikes:1})
+    .then((promise)=> {console.log(promise);
 
-
-      break;
-      case -1:
-      //liked(userDisLiked,:id);
-        console.log('like = -1 tu n\'aimes pas');
-      break;
-      case 0:
-               console.log("ZERO !!");
-        //zero(userID);
-      break;
-      default:
-        res.status(400).json({message:"la requête ne possède pas de valeur like"});
-    }
-  })
-    .catch(error=> res.status(400).json({message:"sauce non trouvée"}));
-
+})
+  .catch(error => res.status(400).json({message:"mauvaise requête"}));
+        break;
+          
+        default:
+          console.log("that's all");
+      };
+//       Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+//    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+//    .catch(error => res.status(400).json({message:"sauce non trouvée"}));
+  res.status(201).json({message:"ouf!"});
   };
 
 
@@ -123,14 +109,3 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 
-  
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
