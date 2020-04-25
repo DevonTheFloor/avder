@@ -46,48 +46,45 @@ exports.modifySauce = (req, res, next) => {
 
 exports.like = (req,res,next)=>{
    console.log("LIKE in route");
-  console.log(req.body);
+    console.log(req.body);
       var userId = req.body.userId;
-        console.log("userId body : "+userId);
+      console.log("userId body : "+userId);
       var like = req.body.like;
       console.log("like = "+like);   
-  
+
+      let avis;
       switch (like) {
       case 1:
-  
-  Sauce.find({ _id: req.params.id},{usersDisiked:1,likes:1},
-             likes = req.params.likes,
-          console.log("likes param = "+likes)
-  )
-    .then((response)=> {console.log("response = "+response),
-                        console.log(response.likes)
-})
-  .catch(error => res.status(400).json({message:"avis non pris en compte"}));
+        console.log('case 1');
+         avis = new Sauce
+       ({
+          usersLiked : ["coucou"],
+          likes: 2
+       });
+       console.log("upDateOne");
+        Sauce.updateOne({ _id: req.params.id },{avis,_id: req.params.id})
+          .then((promise) => {console.log(promise)})
+            .catch(error => res.status(400).json({message:"avis non pris en compte"}));
+        break;
 
-          break;
-
-        case -1:
-         Sauce.find({ _id: req.params.id},)
-    .then((promise)=> {console.log(promise);
-})
-  .catch(error => res.status(400).json({message:"mauvaise requête"}));
-          break;
-          
-        case 0:
-          Sauce.find({ _id: req.params.id},{usersLiked:1,usersDisiked:1,likes:1,dislikes:1})
-    .then((promise)=> {console.log(promise);
-
-})
-  .catch(error => res.status(400).json({message:"mauvaise requête"}));
+      case 3:
+        Sauce.find({ _id: req.params.id})
+          .then((promise)=> {console.log(promise)})
+            .catch(error => res.status(400).json({message:"mauvaise requête"}));
         break;
           
-        default:
-          console.log("that's all");
-      };
-//       Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-//    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-//    .catch(error => res.status(400).json({message:"sauce non trouvée"}));
-  res.status(201).json({message:"ouf!"});
+      case 0:
+        Sauce.find({ _id: req.params.id},{usersLiked:1,usersDisiked:1,likes:1,dislikes:1})
+          .then((promise)=> {console.log(promise)})
+            .catch(error => res.status(400).json({message:"sauce non trouvée"}));
+        break;
+          
+      default:
+        console.log("that's all")};
+        
+      /*Sauce.updateOne({ _id: req.params.id }, { avis, _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+          .catch(error => res.status(400).json({message:"sauce non trouvée"}));*/
   };
 
 
