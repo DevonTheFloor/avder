@@ -67,7 +67,7 @@ exports.like = (req,res,next)=>{
             .catch(error => res.status(400).json({message:"avis non pris en compte"}));
         break;
 
-      case 3:
+      case -1:
         Sauce.find({ _id: req.params.id})
           .then((promise)=> {console.log(promise)})
             .catch(error => res.status(400).json({message:"mauvaise requête"}));
