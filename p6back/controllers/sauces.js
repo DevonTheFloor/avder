@@ -55,39 +55,49 @@ exports.like = (req,res,next)=>{
       let avis;
       switch (like) {
       case 1:
-        console.log('case 1');
-         avis = new Sauce
-       ({
-          usersLiked : ["coucou"],
-          likes: 2
-       });
-       console.log("upDateOne");
-        Sauce.updateOne({ _id: req.params.id },{avis,_id: req.params.id})
-          .then((promise) => {console.log(promise)})
-            .catch(error => res.status(400).json({message:"avis non pris en compte"}));
+        Sauce.updateOne({_id: req.params.id},
+          {$inc: {likes: 1}, $push:{usersLiked: userId} })
+          .then(()=>res.status(201).json({message:"you like the sauce"}))
+          .catch(error => res.status(400).json({ error:error }));
         break;
 
       case -1:
-        Sauce.find({ _id: req.params.id})
-          .then((promise)=> {console.log(promise)})
-            .catch(error => res.status(400).json({message:"mauvaise requête"}));
+        Sauce.updateOne({ _id: req.params.id },
+          {$inc: {dislikes: 1}, $push:{usersDisliked: userId} })
+          .then(()=>res.status(201).json({message:"like ajouté"}))
+            .catch(error => res.status(400).json({ error:error }));
         break;
           
       case 0:
-        Sauce.find({ _id: req.params.id},{usersLiked:1,usersDisiked:1,likes:1,dislikes:1})
-          .then((promise)=> {console.log(promise)})
+        Sauce.findOne({ _id: req.params.id})
+          .then((promise)=> {
+            if(promise.usersLiked.includes(userId)) {
+              unlike(req,res);
+            } else {
+              undislike(req,res);
+            }
+          })
             .catch(error => res.status(400).json({message:"sauce non trouvée"}));
         break;
           
       default:
         console.log("that's all")};
         
-      /*Sauce.updateOne({ _id: req.params.id }, { avis, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-          .catch(error => res.status(400).json({message:"sauce non trouvée"}));*/
   };
 
+function unlike(req,res){
+  Sauce.updateOne({_id: req.params.id},
+    {$pull: {usersLiked: req.body.userId},$inc: {likes: -1}})
+  .then(()=>{res.status(201).json({message: "sauce unliked"})})
+  .catch(()=> {res.status(400).json({error:error})})
+}
 
+function undislike(req,res){
+  Sauce.updateOne({_id: req.params.id},
+    {$pull: {usersDisliked: req.body.userId},$inc: {likes: -1}})
+  .then(()=>{res.status(201).json({message: "sauce unliked"})})
+  .catch(()=> {res.status(400).json({error:error})})
+}
 
 exports.deleteSauce = (req, res, next) => {
   console.log("DELETE");
