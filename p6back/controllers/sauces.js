@@ -94,7 +94,7 @@ function unlike(req,res){
 
 function undislike(req,res){
   Sauce.updateOne({_id: req.params.id},
-    {$pull: {usersDisliked: req.body.userId},$inc: {likes: -1}})
+    {$pull: {usersDisliked: req.body.userId},$inc: {dislikes: -1}})
   .then(()=>{res.status(201).json({message: "sauce unliked"})})
   .catch(()=> {res.status(400).json({error:error})})
 }
